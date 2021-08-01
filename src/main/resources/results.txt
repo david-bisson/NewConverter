@@ -1,0 +1,3 @@
+3.52, USD to ILS
+0.28, ILS to USD
+0.26, ILS to EUR
