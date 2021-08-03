@@ -6,10 +6,23 @@ public class Runner {
 
     ArrayList<String> results = new ArrayList<>();
     Scanner scanner = new Scanner(System.in);
+    int number;
+    double input;
+    double value;
+
     public void runner() throws IOException {
 
+        coinToConvert();
 
-        int number;
+        amountToConvert();
+
+        coinsConversions();
+
+        startOver();
+    }
+
+    private int coinToConvert() throws IOException {
+
         do {
             System.out.println("Please choose an option (1/2/3):");
             System.out.println("1. Dollars to Shekels");
@@ -22,23 +35,25 @@ public class Runner {
                 runner();
             }
             number = scanner.nextInt();
+            return number;
         } while (number <= 0);
-//        System.out.println("Thank you! Got " + number);
+    } //User interface to choose coin to convert
 
-        double input;
+    private double amountToConvert() throws IOException {
+
         do {
             System.out.println("Please enter an amount to convert");
-            while (!scanner.hasNextInt()) {
+            while (!scanner.hasNextDouble()) {
                 System.out.println("Invalid Choice, please try again");
                 scanner.next(); // this is important!
                 runner();
             }
             input = scanner.nextDouble();
-        } while (number <= 0);
+            return input;
+        } while (input <= 0);
+    }// User interface to insert amount of coin to convert
 
-        double value;
-
-
+    private void coinsConversions() throws IOException {
         switch (number) {
             case 1:
                 System.out.println("You have chosen to Convert Dollars to Shekels");
@@ -75,8 +90,9 @@ public class Runner {
                 System.out.println("Invalid Choice, please start over");
                 runner();
         }
+    } //Makes the converter calculations with switch case
 
-
+    private void startOver() throws IOException {
         System.out.println("Do you wish to start over Y/N?");
         String startOver = scanner.next();
 
@@ -92,7 +108,7 @@ public class Runner {
                 System.out.println("Invalid Choice, please start over");
                 runner();
         }
-    }
+    } // start over screen, no will print the list collection and will open the result txt file
 
 
     private void endScreen() {  /// Display thanks message and call OpenFile method
