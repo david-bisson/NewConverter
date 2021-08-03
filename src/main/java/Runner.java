@@ -5,25 +5,45 @@ import java.util.Scanner;
 public class Runner {
 
     ArrayList<String> results = new ArrayList<>();
-
+    Scanner scanner = new Scanner(System.in);
     public void runner() throws IOException {
 
-        System.out.println("Please choose an option (1/2/3):");
-        System.out.println("1. Dollars to Shekels");
-        System.out.println("2. Shekels to Dollars");
-        System.out.println("3. Shekels to EURO");
 
-        Scanner scanner = new Scanner(System.in);
-        int convChosen = scanner.nextInt();
-        double input ;
+        int number;
+        do {
+            System.out.println("Please choose an option (1/2/3):");
+            System.out.println("1. Dollars to Shekels");
+            System.out.println("2. Shekels to Dollars");
+            System.out.println("3. Shekels to EURO");
+
+            while (!scanner.hasNextInt()) {
+                System.out.println("Invalid Choice, please try again");
+                scanner.next(); // this is important!
+                runner();
+            }
+            number = scanner.nextInt();
+        } while (number <= 0);
+//        System.out.println("Thank you! Got " + number);
+
+        double input;
+        do {
+            System.out.println("Please enter an amount to convert");
+            while (!scanner.hasNextInt()) {
+                System.out.println("Invalid Choice, please try again");
+                scanner.next(); // this is important!
+                runner();
+            }
+            input = scanner.nextDouble();
+        } while (number <= 0);
+
         double value;
 
 
-        switch (convChosen) {
+        switch (number) {
             case 1:
                 System.out.println("You have chosen to Convert Dollars to Shekels");
-                System.out.println("Please enter an amount to convert");
-                input = scanner.nextDouble();
+//                System.out.println("Please enter an amount to convert");
+//                input = scanner.nextDouble();
                 Coin usdValue = CoinFactory.getCoinInstance(Coins.USD);
                 value = usdValue.calculate(input);
                 System.out.println(input + " Dollar/s are " + value + " Shekels");
@@ -33,8 +53,8 @@ public class Runner {
                 break;
             case 2:
                 System.out.println("You have chosen to Convert Shekels to Dollars");
-                System.out.println("Please enter an amount to convert");
-                input = scanner.nextDouble();
+//                System.out.println("Please enter an amount to convert");
+//                input = scanner.nextDouble();
                 Coin ilsValue = CoinFactory.getCoinInstance(Coins.ILS);
                 value = ilsValue.calculate(input);
                 System.out.println(input + " Shekels are " + value + " Dollar/s");
@@ -43,8 +63,8 @@ public class Runner {
                 break;
             case 3:
                 System.out.println("You have chosen to Convert Shekels to EURO");
-                System.out.println("Please enter an amount to convert");
-                input = scanner.nextDouble();
+//                System.out.println("Please enter an amount to convert");
+//                input = scanner.nextDouble();
                 Coin eurValue = CoinFactory.getCoinInstance(Coins.EUR);
                 value = eurValue.calculate(input);
                 System.out.println(input + " Shekels are " + value + " EURO/S");
@@ -55,6 +75,7 @@ public class Runner {
                 System.out.println("Invalid Choice, please start over");
                 runner();
         }
+
 
         System.out.println("Do you wish to start over Y/N?");
         String startOver = scanner.next();
@@ -73,11 +94,11 @@ public class Runner {
         }
     }
 
-    private void endScreen(){
-        System.out.println("Thanks for using our currency converter.");
 
-            System.out.println(results);
-            openFile.openFile();
+    private void endScreen() {  /// Display thanks message and call OpenFile method
+        System.out.println("Thanks for using our currency converter.");
+        System.out.println(results);
+        openFile.openFile();
 
     }
 }
